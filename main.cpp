@@ -8,9 +8,9 @@
 
 #pragma warning(disable : 4996) // inet_addr устарело
 
-#define ADDR "8.8.8.8"  //IP - адрес
+//#define ADDR "8.8.8.8"  //IP - адрес
 
-int main()
+int main(int argc, char* argv[])
 {
 	setlocale(LC_ALL, "rus");
 
@@ -21,7 +21,7 @@ int main()
 		exit(EXIT_FAILURE);
 	}
 
-	unsigned long ipaddr = inet_addr(ADDR); //преобразование IP-адреса
+	unsigned long ipaddr = inet_addr(argv[1]); //преобразование IP-адреса
 	char SendData[32] = "Data Buffer"; //данные эхо-запроса
 	LPVOID ReplyBuffer = NULL; //данные эхо-ответа
 	DWORD ReplySize = 0; //размер данных эхо-ответа
@@ -48,7 +48,7 @@ int main()
 		struct in_addr ReplyAddr;
 		ReplyAddr.S_un.S_addr = pEchoReply->Address;
 		printf("Посылка icmp сообщения на %s\n",
-			ADDR);
+			argv[1]);
 		if (dwRetVal > 1) {
 			printf("Получен %ldicmp ответ\n",
 				dwRetVal);
